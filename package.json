@@ -8,7 +8,7 @@
     "dev:server": "npm --prefix server run dev",
     "dev:client": "npm --prefix client run dev",
     "build": "npm --prefix client run build && npm --prefix server run build",
-    "start": "STATIC_DIR=../client/dist npm --prefix server start",
+    "start": "npm --prefix server start",
     "test": "npm --prefix server test",
     "test:e2e": "npm run build && playwright test",
     "audit": "npm --prefix server audit && npm --prefix client audit && npm audit"

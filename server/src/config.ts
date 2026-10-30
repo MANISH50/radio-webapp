@@ -1,4 +1,5 @@
 import { randomBytes } from 'node:crypto';
+import { fileURLToPath } from 'node:url';
 import { z } from 'zod';
 
 const flag = z.enum(['true', 'false', '1', '0']).transform((v) => v === 'true' || v === '1');
@@ -117,6 +118,7 @@ export function loadConfig(source: NodeJS.ProcessEnv = process.env): Config {
       sessionPerIp: e.RATE_SESSION_IP_PER_MIN,
     },
     logLevel: e.LOG_LEVEL,
-    staticDir: e.STATIC_DIR,
+    // Defaults to the built client next to the server (works from src/ and dist/).
+    staticDir: e.STATIC_DIR ?? fileURLToPath(new URL('../../client/dist', import.meta.url)),
   };
 }
