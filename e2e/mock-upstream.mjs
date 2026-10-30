@@ -25,15 +25,23 @@ const station = (n, over = {}) => ({
   ...over,
 });
 
-const INDIA = [station(1), station(2), station(3), station(4, { lastcheckok: 0, name: 'Broken Station' })];
+const INDIA = [
+  station(1),
+  station(2),
+  station(3),
+  // Marked broken upstream: must be hidden.
+  station(4, { lastcheckok: 0, name: 'Broken Station' }),
+  // Listed as OK but the stream 404s: exercises the player's error state.
+  station(5, { name: 'Mock Radio India Offline', url: `${BASE}/dead`, url_resolved: `${BASE}/dead`, clickcount: 998, votes: 0 }),
+];
 const COUNTRIES = [
-  { name: 'India', iso_3166_1: 'IN', stationcount: 3 },
+  { name: 'India', iso_3166_1: 'IN', stationcount: 4 },
   { name: 'Germany', iso_3166_1: 'DE', stationcount: 2 },
   { name: 'Brazil', iso_3166_1: 'BR', stationcount: 1 },
 ];
 
-// 2 s of silent 8 kHz mono PCM, enough for the <audio> element to start playing.
-function silentWav(seconds = 2, rate = 8000) {
+// 60 s of silent 8 kHz mono PCM, enough for the <audio> element to start playing.
+function silentWav(seconds = 60, rate = 8000) {
   const data = rate * seconds;
   const buf = Buffer.alloc(44 + data, 0x80);
   buf.write('RIFF', 0);

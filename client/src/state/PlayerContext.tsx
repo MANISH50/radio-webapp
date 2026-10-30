@@ -180,8 +180,12 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     audio.addEventListener('playing', onPlaying);
     audio.addEventListener('pause', onPause);
     audio.addEventListener('waiting', onWaiting);
+    // A live stream "ending" means the connection dropped.
+    const onEnded = () => fail('The stream stopped.');
     audio.addEventListener('error', onError);
+    audio.addEventListener('ended', onEnded);
     return () => {
+      audio.removeEventListener('ended', onEnded);
       audio.removeEventListener('playing', onPlaying);
       audio.removeEventListener('pause', onPause);
       audio.removeEventListener('waiting', onWaiting);

@@ -8,7 +8,7 @@ test('select India, play the first station, see "Now playing"', async ({ page })
 
   await expect(page.getByRole('heading', { level: 1, name: /India/ })).toBeVisible();
   const list = page.getByRole('list', { name: 'Stations in India' });
-  await expect(list.getByRole('listitem')).toHaveCount(3); // the broken station is hidden
+  await expect(list.getByRole('listitem')).toHaveCount(4); // the station marked broken upstream is hidden
 
   await list.getByRole('button', { name: /^Play / }).first().click();
 
