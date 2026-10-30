@@ -1,0 +1,10 @@
+{
+  "name": "WorldWave Radio",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
+  "forwardPorts": [8080],
+  "portsAttributes": {
+    "8080": { "label": "WorldWave Radio", "onAutoForward": "openBrowser" }
+  },
+  "postCreateCommand": "npm run install:all && npm run build",
+  "postAttachCommand": "bash .devcontainer/start.sh"
+}
