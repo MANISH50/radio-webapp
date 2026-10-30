@@ -6,6 +6,7 @@ import { PrefsProvider, type Theme, usePrefs } from './state/PrefsContext';
 import { CountriesView } from './views/CountriesView';
 import { CountryView } from './views/CountryView';
 import { LibraryView } from './views/LibraryView';
+import { NowPlayingView } from './views/NowPlayingView';
 import { SearchView } from './views/SearchView';
 
 function ThemeSelect() {
@@ -96,6 +97,8 @@ function View({ route }: { route: Route }) {
     case 'favourites':
     case 'recent':
       return <LibraryView kind={route.name} />;
+    case 'nowPlaying':
+      return <NowPlayingView />;
     default:
       return <CountriesView />;
   }
@@ -104,6 +107,8 @@ function View({ route }: { route: Route }) {
 function Shell() {
   const route = useRoute();
   const mainRef = useRef<HTMLElement>(null);
+  // The now-playing page carries its own console, so the bottom bar would be a duplicate there.
+  const showBar = route.name !== 'nowPlaying';
   return (
     <div className="flex min-h-dvh flex-col">
       <button
@@ -114,10 +119,10 @@ function Shell() {
         Skip to content
       </button>
       <Header route={route} />
-      <main ref={mainRef} tabIndex={-1} className="mx-auto w-full max-w-6xl flex-1 px-4 pb-44 pt-6 outline-none sm:pb-32">
+      <main ref={mainRef} tabIndex={-1} className={`mx-auto w-full max-w-6xl flex-1 px-4 pt-6 outline-none ${showBar ? 'pb-44 sm:pb-32' : 'pb-12'}`}>
         <View route={route} />
       </main>
-      <PlayerBar />
+      {showBar && <PlayerBar />}
     </div>
   );
 }
