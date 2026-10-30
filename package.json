@@ -1,0 +1,19 @@
+{
+  "name": "worldwave-radio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Browse and listen to live radio from every country. React client + secure Node BFF.",
+  "scripts": {
+    "install:all": "npm --prefix server ci && npm --prefix client ci && npm ci",
+    "dev:server": "npm --prefix server run dev",
+    "dev:client": "npm --prefix client run dev",
+    "build": "npm --prefix client run build && npm --prefix server run build",
+    "start": "STATIC_DIR=../client/dist npm --prefix server start",
+    "test": "npm --prefix server test",
+    "test:e2e": "npm run build && playwright test",
+    "audit": "npm --prefix server audit && npm --prefix client audit && npm audit"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0"
+  }
+}
