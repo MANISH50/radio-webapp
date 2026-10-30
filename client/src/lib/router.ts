@@ -5,7 +5,8 @@ export type Route =
   | { name: 'country'; code: string }
   | { name: 'search'; q: string }
   | { name: 'favourites' }
-  | { name: 'recent' };
+  | { name: 'recent' }
+  | { name: 'nowPlaying' };
 
 /** Hash routes keep the server a static file host: #/country/IN, #/search/jazz, ... */
 export function parseHash(hash: string): Route {
@@ -22,6 +23,7 @@ export function parseHash(hash: string): Route {
   }
   if (section === 'favourites') return { name: 'favourites' };
   if (section === 'recent') return { name: 'recent' };
+  if (section === 'now-playing') return { name: 'nowPlaying' };
   return { name: 'home' };
 }
 
@@ -35,6 +37,8 @@ export function href(route: Route): string {
       return '#/favourites';
     case 'recent':
       return '#/recent';
+    case 'nowPlaying':
+      return '#/now-playing';
     default:
       return '#/';
   }
